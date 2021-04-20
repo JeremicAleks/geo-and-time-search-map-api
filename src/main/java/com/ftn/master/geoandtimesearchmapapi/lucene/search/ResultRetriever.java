@@ -67,6 +67,26 @@ public class ResultRetriever {
 		return resultDataCityList;
 	}
 
+
+	public List<ResultDataCity> getCityByNameOrAsciiName(String name) {
+		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrNameAscii(name,name);
+		List<ResultDataCity> resultDataCityList = new ArrayList<>();
+		for(IndexUnitCity indexUnitCity: listOfCity) {
+			ResultDataCity resultDataCity = new ResultDataCity();
+			resultDataCity.setAdminName(indexUnitCity.getAdminName());
+			resultDataCity.setCountry(indexUnitCity.getCountry());
+			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
+			resultDataCity.setIso3(indexUnitCity.getIso3());
+			resultDataCity.setName(indexUnitCity.getName());
+			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
+			resultDataCity.setId(indexUnitCity.getId());
+			resultDataCityList.add(resultDataCity);
+		}
+
+		return resultDataCityList;
+	}
+
+
 	public List<ResultDataEvent> getGeoPointSearch(QueryBuilder queryBuilder) throws Exception{
 		List<ResultDataEvent> resultDataEvents = new ArrayList<>();
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -88,57 +108,23 @@ public class ResultRetriever {
 	}
 
 
-//	public List<ResultData> getResults(org.elasticsearch.index.query.QueryBuilder query,
-//									   List<RequiredHighlight> requiredHighlights)  throws IOException {
-//		if (query == null) {
-//			return null;
-//		}
-//
-//		List<ResultData> results = new ArrayList<>();
-//		Search search = new Search.Builder(SearchAndHiglihtHelper.createHighlihtSearchQuery(query).toString()).addIndex("digitallibrary").addType("article").build();
-//
-//		SearchResult result = client.execute(search);
-//		List<SearchResult.Hit<IndexUnit, Void>> hits = result.getHits(IndexUnit.class);
-//
-//			for (SearchResult.Hit<IndexUnit, Void> indexUnit : hits)
-//        	results.add(new
-//					ResultData(indexUnit.source.getText(),indexUnit.source.getTitle(),indexUnit.source.getKeywords(),indexUnit.source.getFilename(),indexUnit.source.getArticleAbstract()
-//			,indexUnit.source.getAuthor(),indexUnit.source.getScientificArea(),indexUnit.source.getIdArticle(),indexUnit.source.getMagazineType(),indexUnit.source.getMagazineTitle(), indexUnit.source.getStatus(), SearchAndHiglihtHelper.findHiglight(indexUnit,requiredHighlights).toString()));
-//
-//
-//		return results;
-//	}
+	public List<ResultDataCity> getCityByNameOrAminNameOrNameAscii(String name) {
 
-//	public List<ResultData> getResultsMoreLikeThis(org.elasticsearch.index.query.QueryBuilder query) throws IOException {
-//		if (query == null) {
-//			return null;
-//		}
-//
-//		List<ResultData> results = new ArrayList<>();
-//
-//		for (IndexUnit indexUnit : repository.search(query)) {
-//			ResultData resultData = new ResultData(indexUnit.getText(), indexUnit.getTitle(), indexUnit.getKeywords(), indexUnit.getFilename(), indexUnit.getArticleAbstract()
-//					, indexUnit.getAuthor(), indexUnit.getScientificArea(), indexUnit.getIdArticle(), indexUnit.getMagazineType(), indexUnit.getMagazineTitle(), indexUnit.getStatus(), "");
-//			resultData.setReviewers(indexUnit.getReviewers());
-//			results.add(resultData);
-//		}
-//
-//
-//		return results;
-//	}
+		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrAdminNameOrNameAscii(name,name,name);
+		List<ResultDataCity> resultDataCityList = new ArrayList<>();
+		for(IndexUnitCity indexUnitCity: listOfCity) {
+			ResultDataCity resultDataCity = new ResultDataCity();
+			resultDataCity.setAdminName(indexUnitCity.getAdminName());
+			resultDataCity.setCountry(indexUnitCity.getCountry());
+			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
+			resultDataCity.setIso3(indexUnitCity.getIso3());
+			resultDataCity.setName(indexUnitCity.getName());
+			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
+			resultDataCity.setId(indexUnitCity.getId());
+			resultDataCityList.add(resultDataCity);
+		}
 
-//	public List<ResultDataUser> getResultsUser(org.elasticsearch.index.query.QueryBuilder query)  throws IOException {
-//		if (query == null) {
-//			return null;
-//		}
-//
-//		List<ResultDataUser> results = new ArrayList<>();
-//
-//		for (IndexUnitUser indexUnitUser : userElasticRepository.search(query)) {
-//			results.add(new ResultDataUser(indexUnitUser.getUsername(),indexUnitUser.getFirstname(),indexUnitUser.getSurname(),indexUnitUser.getLocationName(),indexUnitUser.getLokacija(),indexUnitUser.getUserId(),indexUnitUser.getUserRole(),indexUnitUser.getGeo_point()));
-//		}
-//
-//		return results;
-//	}
+		return resultDataCityList;
 
+	}
 }

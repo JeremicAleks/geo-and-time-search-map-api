@@ -3,22 +3,13 @@ package com.ftn.master.geoandtimesearchmapapi.dto;
 import java.util.Date;
 
 public class AddEventDTO {
-    private Long id;
     private String name;
     private String description;
     private double lat;
-    private double lng;
+    private double lon;
     private Date eventDate;
 
     public AddEventDTO() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -45,12 +36,12 @@ public class AddEventDTO {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
+    public double getLon() {
+        return lon;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public Date getEventDate() {

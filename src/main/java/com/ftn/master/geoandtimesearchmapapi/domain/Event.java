@@ -19,9 +19,12 @@ public class Event {
 
     private double lat;
 
-    private double lng;
+    private double lon;
 
     private Date eventDate;
+
+    private boolean approved;
+
 
     public Event() {
     }
@@ -58,12 +61,12 @@ public class Event {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
+    public double getLon() {
+        return lon;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public Date getEventDate() {
@@ -72,5 +75,13 @@ public class Event {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

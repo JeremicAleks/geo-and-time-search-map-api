@@ -7,7 +7,7 @@ public class EventDTO {
     private String name;
     private String description;
     private double lat;
-    private double lng;// treba promeniti na lon zbog konzistentnosti
+    private double lon;
     private Date eventDate;
 
     public EventDTO() {
@@ -45,12 +45,12 @@ public class EventDTO {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
+    public double getLon() {
+        return lon;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public Date getEventDate() {

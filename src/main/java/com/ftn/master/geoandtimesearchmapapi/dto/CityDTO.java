@@ -5,7 +5,7 @@ public class CityDTO {
     private String name;
     private String nameAscii;
     private double lat;
-    private double lng; // treba promeniti na lon zbog konzistentnosti
+    private double lon;
     private String country;
     private String iso3;
     private String adminName;
@@ -45,12 +45,12 @@ public class CityDTO {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
+    public double getLon() {
+        return lon;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public String getCountry() {

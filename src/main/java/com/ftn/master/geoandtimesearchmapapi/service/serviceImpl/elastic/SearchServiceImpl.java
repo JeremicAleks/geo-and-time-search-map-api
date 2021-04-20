@@ -34,11 +34,11 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public ResultDataDTO geoAndTimeSearch(GeoAndTimeQuery geoAndTimeQuery) throws Exception {
         ResultDataDTO resultDataDTO = new ResultDataDTO();
-        ResultDataCity resultDataCity = getCityByName(geoAndTimeQuery.getCityName()).get(0);
+        ResultDataCity resultDataCity = getCityByNameOrAdminNameOrNameAscii(geoAndTimeQuery.getCityName()).get(0);
         resultDataDTO.setName(resultDataCity.getName());
         resultDataDTO.setGeoPoint(resultDataCity.getGeoPoint());
         QueryBuilder queryBuilder = QueryBuilders.geoDistanceQuery("geoPoint").distance(50, DistanceUnit.KILOMETERS).point(new GeoPoint(resultDataCity.getGeoPoint().getLat(),resultDataCity.getGeoPoint().getLon()));
-        QueryBuilder queryBuilderDate = QueryBuilders.rangeQuery("eventDate").gte(geoAndTimeQuery.getFromDate()).lte(geoAndTimeQuery.getToDate());
+        QueryBuilder queryBuilderDate = QueryBuilders.rangeQuery("eventDate").gte(geoAndTimeQuery.getStartDate()).lte(geoAndTimeQuery.getEndDate());
         QueryBuilder queryBuilderMustNot = QueryBuilders.boolQuery().must(queryBuilder).must(queryBuilderDate);
 
         List<ResultDataEvent> resultDataEvents = resultRetriever.getGeoPointSearch(queryBuilderMustNot);
@@ -55,5 +55,15 @@ public class SearchServiceImpl implements SearchService {
 
         return resultDataDTO;
 
+    }
+
+    @Override
+    public List<ResultDataCity> getCityByNameOrNameAscii(String name) {
+        return resultRetriever.getCityByNameOrAsciiName(name);
+    }
+
+    @Override
+    public List<ResultDataCity> getCityByNameOrAdminNameOrNameAscii(String name) {
+        return resultRetriever.getCityByNameOrAminNameOrNameAscii(name);
     }
 }

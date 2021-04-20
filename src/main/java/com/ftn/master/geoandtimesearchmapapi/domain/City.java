@@ -18,7 +18,7 @@ public class City {
 
     private double lat;
 
-    private double lng;
+    private double lon;
 
     private String country;
 
@@ -61,12 +61,10 @@ public class City {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
-    }
+    public double getLon() { return lon; }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     public String getCountry() {

@@ -5,6 +5,8 @@ import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
 import com.ftn.master.geoandtimesearchmapapi.repository.elastic.CityElasticRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IndexerCityServiceImpl implements IndexerCityService {
 
@@ -19,6 +21,13 @@ public class IndexerCityServiceImpl implements IndexerCityService {
         cityElasticRepository.save(indexUnitCity);
         return true;
     }
+
+    @Override
+    public boolean indexListOfCities(List<IndexUnitCity> indexUnitCityList) {
+        cityElasticRepository.saveAll(indexUnitCityList);
+        return true;
+    }
+
 
     @Override
     public boolean deleteCity(IndexUnitCity indexUnitCity) {

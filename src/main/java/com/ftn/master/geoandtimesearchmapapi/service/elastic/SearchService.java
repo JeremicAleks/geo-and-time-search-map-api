@@ -13,4 +13,8 @@ public interface SearchService {
     List<ResultDataCity> getCityByNameOrAdminName(String name);
 
     ResultDataDTO geoAndTimeSearch(GeoAndTimeQuery geoAndTimeQuery) throws Exception;
+
+    List<ResultDataCity> getCityByNameOrNameAscii(String name);
+
+    List<ResultDataCity> getCityByNameOrAdminNameOrNameAscii(String name);
 }

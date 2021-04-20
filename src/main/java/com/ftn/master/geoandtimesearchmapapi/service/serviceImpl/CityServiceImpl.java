@@ -40,7 +40,7 @@ public class CityServiceImpl implements CityService {
         IndexUnitCity index = new IndexUnitCity();
         index.setAdminName(addCityDTO.getAdminName());
         index.setCountry(addCityDTO.getCountry());
-        index.setGeoPoint(new GeoPoint(addCityDTO.getLat(),addCityDTO.getLng()));
+        index.setGeoPoint(new GeoPoint(addCityDTO.getLat(),addCityDTO.getLon()));
         index.setId(addCityDTO.getId().toString());
         index.setIso3(addCityDTO.getIso3());
         index.setName(addCityDTO.getName());
@@ -58,5 +58,11 @@ public class CityServiceImpl implements CityService {
     @Override
     public boolean deleteCity(Long id) {
         return false;
+    }
+
+    @Override
+    public boolean indexListOfCities(List<IndexUnitCity> indexUnitCityList) {
+        indexerCityService.indexListOfCities(indexUnitCityList);
+        return true;
     }
 }

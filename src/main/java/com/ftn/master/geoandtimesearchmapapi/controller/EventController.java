@@ -1,13 +1,12 @@
 package com.ftn.master.geoandtimesearchmapapi.controller;
 
+import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("api/event")
 public class EventController {
@@ -18,8 +17,19 @@ public class EventController {
         this.eventService = eventService;
     }
 
+
+    @GetMapping
+    public ResponseEntity<?> getAllEvents(){
+        return ResponseEntity.ok(eventService.findAllEvents());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> findOneEvent(@PathVariable Long id){
+        return ResponseEntity.ok(eventService.findOneEvent(id));
+    }
+
     @PostMapping
-    public ResponseEntity<?> saveEvent(@RequestBody EventDTO eventDTO){
-        return ResponseEntity.ok(eventService.saveEvent(eventDTO));
+    public ResponseEntity<?> saveEvent(@RequestBody AddEventDTO addEventDTO){
+        return ResponseEntity.ok(eventService.saveEvent(addEventDTO));
     }
 }

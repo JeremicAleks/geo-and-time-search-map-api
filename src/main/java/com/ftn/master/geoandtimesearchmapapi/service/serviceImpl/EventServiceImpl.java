@@ -1,47 +1,57 @@
 package com.ftn.master.geoandtimesearchmapapi.service.serviceImpl;
 
 import com.ftn.master.geoandtimesearchmapapi.domain.Event;
+import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
+import com.ftn.master.geoandtimesearchmapapi.dto.EventListDTO;
+import com.ftn.master.geoandtimesearchmapapi.helper.EventMapperHelper;
 import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerEventService;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
+import com.ftn.master.geoandtimesearchmapapi.repository.EventRepository;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
-import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class EventServiceImpl implements EventService {
 
     private final IndexerEventService indexerEventService;
 
-    public EventServiceImpl(IndexerEventService indexerEventService) {
+    private final EventRepository eventRepository;
+
+    public EventServiceImpl(IndexerEventService indexerEventService, EventRepository eventRepository) {
         this.indexerEventService = indexerEventService;
+        this.eventRepository = eventRepository;
     }
 
 
     @Override
-    public List<Event> findAllEvents() {
-        return null;
+    public EventListDTO findAllEvents() {
+        List<Event> events = eventRepository.findAll();
+        EventListDTO eventListDTO = new EventListDTO();
+        for(Event event: events) {
+            eventListDTO.getEvents().add(EventMapperHelper.eventDTOFromEvent(event));
+        }
+        return eventListDTO;
     }
 
     @Override
-    public Event findOneEvent(Long id) {
-        return null;
+    public EventDTO findOneEvent(Long id) {
+        Event event = eventRepository.getOne(id);
+        return EventMapperHelper.eventDTOFromEvent(event);
     }
 
     @Override
-    public Event saveEvent(EventDTO eventDTO) {
-        IndexUnitEvent indexUnitEvent = new IndexUnitEvent();
-        indexUnitEvent.setName(eventDTO.getName());
-        indexUnitEvent.setDescription(eventDTO.getDescription());
-        indexUnitEvent.setEventDate(eventDTO.getEventDate());
-        indexUnitEvent.setGeoPoint(new GeoPoint(eventDTO.getLat(),eventDTO.getLng()));
-        indexUnitEvent.setId(eventDTO.getId().toString());
+    public EventDTO saveEvent(AddEventDTO addEventDTO) {
+        Event event = EventMapperHelper.createEventForAddFromDTO(addEventDTO);
+        event = eventRepository.save(event);
+        IndexUnitEvent indexUnitEvent = EventMapperHelper.indexUnitEventFromDomainMapper(event);
 
         indexerEventService.addEvent(indexUnitEvent);
 
-        return null;
+        return EventMapperHelper.eventDTOFromEvent(event);
     }
 
     @Override

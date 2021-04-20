@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class GeoAndTimeQuery {
     private String cityName;
-    private Date fromDate;
-    private Date toDate;
+    private Date startDate;
+    private Date endDate;
 
     public GeoAndTimeQuery() {
     }
@@ -18,19 +18,19 @@ public class GeoAndTimeQuery {
         this.cityName = cityName;
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getToDate() {
-        return toDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

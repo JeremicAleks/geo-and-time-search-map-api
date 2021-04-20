@@ -3,6 +3,7 @@ package com.ftn.master.geoandtimesearchmapapi.service;
 import com.ftn.master.geoandtimesearchmapapi.domain.City;
 import com.ftn.master.geoandtimesearchmapapi.dto.AddCityDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.CityDTO;
+import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface CityService {
     City saveCity(CityDTO addCityDTO);
     City updateCity(City city);
     boolean deleteCity(Long id);
+
+    boolean indexListOfCities(List<IndexUnitCity> indexUnitCityList);
 }
