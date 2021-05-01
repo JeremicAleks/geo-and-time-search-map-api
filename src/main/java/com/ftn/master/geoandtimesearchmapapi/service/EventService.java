@@ -11,8 +11,11 @@ public interface EventService {
 
     EventListDTO findAllEvents();
     EventDTO findOneEvent(Long id);
+    EventListDTO getAllApproved();
+    EventListDTO getAllRequestedEvents();
+    EventDTO approveEvent(EventDTO eventDTO);
     EventDTO saveEvent(AddEventDTO addEventDTO);
-    Event updateEvent(Event event);
+    EventDTO updateEvent(EventDTO eventDTO);
     boolean deleteEvent(Long id);
 
 

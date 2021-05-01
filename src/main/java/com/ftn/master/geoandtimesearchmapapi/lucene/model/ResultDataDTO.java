@@ -7,7 +7,7 @@ import java.util.List;
 public class ResultDataDTO {
     private String name;
     private GeoPoint geoPoint;
-    private List<ResultDataEventDTO> resultDataEvents;
+    private List<ResultDataEvent> resultDataEvents;
 
     public ResultDataDTO() {
     }
@@ -28,11 +28,11 @@ public class ResultDataDTO {
         this.geoPoint = geoPoint;
     }
 
-    public List<ResultDataEventDTO> getResultDataEvents() {
+    public List<ResultDataEvent> getResultDataEvents() {
         return resultDataEvents;
     }
 
-    public void setResultDataEvents(List<ResultDataEventDTO> resultDataEvents) {
+    public void setResultDataEvents(List<ResultDataEvent> resultDataEvents) {
         this.resultDataEvents = resultDataEvents;
     }
 }

@@ -18,6 +18,11 @@ public final class EventMapperHelper {
         event.setLon(addEventDTO.getLon());
         event.setApproved(false); //TODO: Videti da li treba da ostane false
         event.setEventDate(addEventDTO.getEventDate());
+        event.setCategory(addEventDTO.getCategory());
+        event.setAddress(addEventDTO.getAddress());
+        event.setWebSite(addEventDTO.getWebSite());
+        event.setPhone(addEventDTO.getPhone());
+        event.setCity(addEventDTO.getCity());
         return event;
     }
 
@@ -29,16 +34,27 @@ public final class EventMapperHelper {
         eventDTO.setLon(event.getLon());
         eventDTO.setId(event.getId());
         eventDTO.setEventDate(event.getEventDate());
+        eventDTO.setCategory(event.getCategory());
+        eventDTO.setAddress(event.getAddress());
+        eventDTO.setWebSite(event.getWebSite());
+        eventDTO.setPhone(event.getPhone());
+        eventDTO.setCity(event.getCity());
         return eventDTO;
     }
 
     public static IndexUnitEvent indexUnitEventFromDomainMapper(Event event){
         IndexUnitEvent indexUnitEvent = new IndexUnitEvent();
-        indexUnitEvent.setId(event.getId().toString());
+        indexUnitEvent.setId(event.getId());
         indexUnitEvent.setName(event.getName());
         indexUnitEvent.setDescription(event.getDescription());
         indexUnitEvent.setGeoPoint(new GeoPoint(event.getLat(),event.getLon()));
         indexUnitEvent.setEventDate(event.getEventDate());
+        indexUnitEvent.setCategory(event.getCategory());
+        indexUnitEvent.setApproved(event.isApproved());
+        indexUnitEvent.setAddress(event.getAddress());
+        indexUnitEvent.setWebSite(event.getWebSite());
+        indexUnitEvent.setPhone(event.getPhone());
+        indexUnitEvent.setCity(event.getCity());
         return indexUnitEvent;
     }
 

@@ -39,19 +39,20 @@ public class SearchServiceImpl implements SearchService {
         resultDataDTO.setGeoPoint(resultDataCity.getGeoPoint());
         QueryBuilder queryBuilder = QueryBuilders.geoDistanceQuery("geoPoint").distance(50, DistanceUnit.KILOMETERS).point(new GeoPoint(resultDataCity.getGeoPoint().getLat(),resultDataCity.getGeoPoint().getLon()));
         QueryBuilder queryBuilderDate = QueryBuilders.rangeQuery("eventDate").gte(geoAndTimeQuery.getStartDate()).lte(geoAndTimeQuery.getEndDate());
-        QueryBuilder queryBuilderMustNot = QueryBuilders.boolQuery().must(queryBuilder).must(queryBuilderDate);
+        QueryBuilder queryBuilderApproved = QueryBuilders.matchQuery("approved",true);
+        QueryBuilder queryBuilderMustNot = QueryBuilders.boolQuery().must(queryBuilder).must(queryBuilderDate).must(queryBuilderApproved);
 
         List<ResultDataEvent> resultDataEvents = resultRetriever.getGeoPointSearch(queryBuilderMustNot);
 
-        resultDataDTO.setResultDataEvents(new ArrayList<>());
+        resultDataDTO.setResultDataEvents(resultDataEvents);
 
-        for(ResultDataEvent resultDataEvent : resultDataEvents){
-            ResultDataEventDTO resultDataEventDTO = new ResultDataEventDTO();
-            resultDataEventDTO.setName(resultDataEvent.getName());
-            resultDataEventDTO.setGeoPoint(resultDataEvent.getGeoPoint());
-            resultDataEventDTO.setEventDate(resultDataEvent.getEventDate());
-            resultDataDTO.getResultDataEvents().add(resultDataEventDTO);
-        }
+//        for(ResultDataEvent resultDataEvent : resultDataEvents){
+//            ResultDataEventDTO resultDataEventDTO = new ResultDataEventDTO();
+//            resultDataEventDTO.setName(resultDataEvent.getName());
+//            resultDataEventDTO.setGeoPoint(resultDataEvent.getGeoPoint());
+//            resultDataEventDTO.setEventDate(resultDataEvent.getEventDate());
+//            resultDataDTO.getResultDataEvents().add(resultDataEventDTO);
+//        }
 
         return resultDataDTO;
 

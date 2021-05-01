@@ -1,9 +1,8 @@
 package com.ftn.master.geoandtimesearchmapapi.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -24,6 +23,18 @@ public class Event {
     private Date eventDate;
 
     private boolean approved;
+
+    private String address;
+
+    private String webSite;
+
+    private String phone;
+
+    private String city;
+
+
+    @Enumerated(EnumType.STRING)
+    private EventCategory category;
 
 
     public Event() {
@@ -83,5 +94,45 @@ public class Event {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public EventCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EventCategory category) {
+        this.category = category;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

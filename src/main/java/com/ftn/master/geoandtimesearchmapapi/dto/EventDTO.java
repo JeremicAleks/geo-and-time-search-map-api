@@ -1,5 +1,7 @@
 package com.ftn.master.geoandtimesearchmapapi.dto;
 
+import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
+
 import java.util.Date;
 
 public class EventDTO {
@@ -9,6 +11,12 @@ public class EventDTO {
     private double lat;
     private double lon;
     private Date eventDate;
+    private EventCategory category;
+    private String address;
+    private String webSite;
+    private String phone;
+    private String city;
+
 
     public EventDTO() {
     }
@@ -59,5 +67,45 @@ public class EventDTO {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public EventCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EventCategory category) {
+        this.category = category;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
