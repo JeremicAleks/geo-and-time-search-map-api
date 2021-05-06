@@ -67,4 +67,10 @@ public class SearchServiceImpl implements SearchService {
     public List<ResultDataCity> getCityByNameOrAdminNameOrNameAscii(String name) {
         return resultRetriever.getCityByNameOrAminNameOrNameAscii(name);
     }
+
+    @Override
+    public List<ResultDataCity> getCitiesStartWith(String name) {
+        return resultRetriever.getCitiesStartWith(name);
+    }
+
 }

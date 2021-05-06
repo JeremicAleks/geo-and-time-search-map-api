@@ -6,6 +6,8 @@ import com.ftn.master.geoandtimesearchmapapi.service.elastic.SearchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @CrossOrigin(value = "*")
 @RestController
 @RequestMapping("api/search")
@@ -41,5 +43,10 @@ public class SearchController {
 		return ResponseEntity.ok(searchService.geoAndTimeSearch(geoAndTimeQuery));
 	}
 
+
+	@GetMapping("cities/{name}")
+	public ResponseEntity<?> findAllCitiesStartWith(@PathVariable("name") String name){
+		return ResponseEntity.ok(searchService.getCitiesStartWith(name));
+	}
 	
 }

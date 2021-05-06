@@ -5,6 +5,9 @@ import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,15 +31,15 @@ public class EventController {
         return ResponseEntity.ok(eventService.findOneEvent(id));
     }
 
-    @GetMapping("approved")
-    public ResponseEntity<?> getAllApproved(){
-        return ResponseEntity.ok(eventService.getAllApproved());
-    }
-
-    @GetMapping("requested")
-    public ResponseEntity<?> getAllRequestedEvents(){
-        return ResponseEntity.ok(eventService.getAllRequestedEvents());
-    }
+//    @GetMapping("approved")
+//    public ResponseEntity<?> getAllApproved(){
+//        return ResponseEntity.ok(eventService.getAllApproved());
+//    }
+//
+//    @GetMapping("requested")
+//    public ResponseEntity<?> getAllRequestedEvents(){
+//        return ResponseEntity.ok(eventService.getAllRequestedEvents());
+//    }
 
     @PostMapping
     public ResponseEntity<?> saveEvent(@RequestBody AddEventDTO addEventDTO){
@@ -52,6 +55,12 @@ public class EventController {
     public ResponseEntity<?> updateEvent(@RequestBody EventDTO eventDTO) {
         return ResponseEntity.ok(eventService.updateEvent(eventDTO));
     }
+
+    @PostMapping("upload/{id}")
+    public ResponseEntity<?> uploadImage(@PathVariable("id") Long id, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        return ResponseEntity.ok(eventService.uploadImage(id,imageFile));
+    }
+
 
 
 }

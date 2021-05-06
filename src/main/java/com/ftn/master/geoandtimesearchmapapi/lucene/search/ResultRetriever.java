@@ -2,6 +2,7 @@ package com.ftn.master.geoandtimesearchmapapi.lucene.search;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ftn.master.geoandtimesearchmapapi.helper.ResultRetrieverMapperHelper;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataCity;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataEvent;
@@ -35,15 +36,7 @@ public class ResultRetriever {
 		List<IndexUnitCity> listOfCity = cityElasticRepository.findByName(name);
 		List<ResultDataCity> resultDataCityList = new ArrayList<>();
 		for(IndexUnitCity indexUnitCity: listOfCity) {
-			ResultDataCity resultDataCity = new ResultDataCity();
-			resultDataCity.setAdminName(indexUnitCity.getAdminName());
-			resultDataCity.setCountry(indexUnitCity.getCountry());
-			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
-			resultDataCity.setIso3(indexUnitCity.getIso3());
-			resultDataCity.setName(indexUnitCity.getName());
-			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
-			resultDataCity.setId(indexUnitCity.getId());
-			resultDataCityList.add(resultDataCity);
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
 		}
 
 		return resultDataCityList;
@@ -53,15 +46,7 @@ public class ResultRetriever {
 		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrAdminName(name,name);
 		List<ResultDataCity> resultDataCityList = new ArrayList<>();
 		for(IndexUnitCity indexUnitCity: listOfCity) {
-			ResultDataCity resultDataCity = new ResultDataCity();
-			resultDataCity.setAdminName(indexUnitCity.getAdminName());
-			resultDataCity.setCountry(indexUnitCity.getCountry());
-			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
-			resultDataCity.setIso3(indexUnitCity.getIso3());
-			resultDataCity.setName(indexUnitCity.getName());
-			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
-			resultDataCity.setId(indexUnitCity.getId());
-			resultDataCityList.add(resultDataCity);
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
 		}
 
 		return resultDataCityList;
@@ -72,15 +57,7 @@ public class ResultRetriever {
 		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrNameAscii(name,name);
 		List<ResultDataCity> resultDataCityList = new ArrayList<>();
 		for(IndexUnitCity indexUnitCity: listOfCity) {
-			ResultDataCity resultDataCity = new ResultDataCity();
-			resultDataCity.setAdminName(indexUnitCity.getAdminName());
-			resultDataCity.setCountry(indexUnitCity.getCountry());
-			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
-			resultDataCity.setIso3(indexUnitCity.getIso3());
-			resultDataCity.setName(indexUnitCity.getName());
-			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
-			resultDataCity.setId(indexUnitCity.getId());
-			resultDataCityList.add(resultDataCity);
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
 		}
 
 		return resultDataCityList;
@@ -113,18 +90,20 @@ public class ResultRetriever {
 		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrAdminNameOrNameAscii(name,name,name);
 		List<ResultDataCity> resultDataCityList = new ArrayList<>();
 		for(IndexUnitCity indexUnitCity: listOfCity) {
-			ResultDataCity resultDataCity = new ResultDataCity();
-			resultDataCity.setAdminName(indexUnitCity.getAdminName());
-			resultDataCity.setCountry(indexUnitCity.getCountry());
-			resultDataCity.setGeoPoint(indexUnitCity.getGeoPoint());
-			resultDataCity.setIso3(indexUnitCity.getIso3());
-			resultDataCity.setName(indexUnitCity.getName());
-			resultDataCity.setNameAscii(indexUnitCity.getNameAscii());
-			resultDataCity.setId(indexUnitCity.getId());
-			resultDataCityList.add(resultDataCity);
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
 		}
 
 		return resultDataCityList;
 
+	}
+
+	public List<ResultDataCity> getCitiesStartWith(String name) {
+		List<IndexUnitCity> listOfCities = cityElasticRepository.findByNameLikeOrAdminNameLikeOrNameAsciiLike(name,name,name);
+		List<ResultDataCity> resultDataCityList = new ArrayList<>();
+		for(IndexUnitCity indexUnitCity: listOfCities) {
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
+		}
+
+		return resultDataCityList;
 	}
 }
