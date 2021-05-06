@@ -1,8 +1,10 @@
 package com.ftn.master.geoandtimesearchmapapi.helper;
 
 import com.ftn.master.geoandtimesearchmapapi.domain.Event;
+import com.ftn.master.geoandtimesearchmapapi.domain.Image;
 import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
+import com.ftn.master.geoandtimesearchmapapi.dto.ImageDTO;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,16 @@ public final class EventMapperHelper {
         eventDTO.setWebSite(event.getWebSite());
         eventDTO.setPhone(event.getPhone());
         eventDTO.setCity(event.getCity());
+        if(event.getImages()!=null && event.getImages().size()>0) {
+            for (Image image : event.getImages()) {
+                ImageDTO imageDTO = new ImageDTO();
+                imageDTO.setId(image.getId());
+                imageDTO.setName(image.getName());
+                imageDTO.setType(image.getType());
+                imageDTO.setPicByte(ImageCompressHelper.decompressZLib(image.getPicByte()));
+                eventDTO.getImages().add(imageDTO);
+            }
+        }
         return eventDTO;
     }
 

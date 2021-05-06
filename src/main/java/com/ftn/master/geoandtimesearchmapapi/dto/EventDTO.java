@@ -3,6 +3,8 @@ package com.ftn.master.geoandtimesearchmapapi.dto;
 import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EventDTO {
     private Long id;
@@ -16,9 +18,11 @@ public class EventDTO {
     private String webSite;
     private String phone;
     private String city;
+    private Set<ImageDTO> images;
 
 
     public EventDTO() {
+        this.images = new HashSet<>();
     }
 
     public Long getId() {
@@ -107,5 +111,13 @@ public class EventDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Set<ImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<ImageDTO> images) {
+        this.images = images;
     }
 }

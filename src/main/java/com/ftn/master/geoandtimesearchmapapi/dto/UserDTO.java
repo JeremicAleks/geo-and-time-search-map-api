@@ -1,11 +1,7 @@
-package com.ftn.master.geoandtimesearchmapapi.domain;
+package com.ftn.master.geoandtimesearchmapapi.dto;
 
-import javax.persistence.*;
+public class UserDTO {
 
-@Entity
-public class User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -14,12 +10,7 @@ public class User{
     private String username;
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Role role;
-
-
-    public User() {
+    public UserDTO() {
     }
 
     public Long getId() {
@@ -68,13 +59,5 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

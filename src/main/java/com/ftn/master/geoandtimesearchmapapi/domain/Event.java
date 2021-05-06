@@ -4,6 +4,7 @@ import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -35,6 +36,10 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventCategory category;
+
+
+    @OneToMany(mappedBy = "event",cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
+    private Set<Image> images;
 
 
     public Event() {
@@ -134,5 +139,13 @@ public class Event {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 }

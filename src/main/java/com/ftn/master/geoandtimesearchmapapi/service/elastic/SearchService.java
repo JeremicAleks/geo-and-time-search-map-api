@@ -17,4 +17,6 @@ public interface SearchService {
     List<ResultDataCity> getCityByNameOrNameAscii(String name);
 
     List<ResultDataCity> getCityByNameOrAdminNameOrNameAscii(String name);
+
+    List<ResultDataCity> getCitiesStartWith(String name);
 }

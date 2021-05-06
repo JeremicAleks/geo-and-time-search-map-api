@@ -1,16 +1,21 @@
 package com.ftn.master.geoandtimesearchmapapi.service.serviceImpl;
 
 import com.ftn.master.geoandtimesearchmapapi.domain.Event;
+import com.ftn.master.geoandtimesearchmapapi.domain.Image;
 import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventListDTO;
 import com.ftn.master.geoandtimesearchmapapi.helper.EventMapperHelper;
+import com.ftn.master.geoandtimesearchmapapi.helper.ImageCompressHelper;
 import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerEventService;
 import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
 import com.ftn.master.geoandtimesearchmapapi.repository.EventRepository;
+import com.ftn.master.geoandtimesearchmapapi.repository.ImageRepository;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -21,9 +26,13 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
 
-    public EventServiceImpl(IndexerEventService indexerEventService, EventRepository eventRepository) {
+    private final ImageRepository imageRepository;
+
+
+    public EventServiceImpl(IndexerEventService indexerEventService, EventRepository eventRepository, ImageRepository imageRepository) {
         this.indexerEventService = indexerEventService;
         this.eventRepository = eventRepository;
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -74,6 +83,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDTO saveEvent(AddEventDTO addEventDTO) {
         Event event = EventMapperHelper.createEventForAddFromDTO(addEventDTO);
+
         event = eventRepository.save(event);
         IndexUnitEvent indexUnitEvent = EventMapperHelper.indexUnitEventFromDomainMapper(event);
 
@@ -102,5 +112,17 @@ public class EventServiceImpl implements EventService {
     @Override
     public boolean deleteEvent(Long id) {
         return false;
+    }
+
+    @Override
+    public boolean uploadImage(Long id, MultipartFile imageFile) throws IOException {
+        Event event = eventRepository.getOne(id);
+        Image image = new Image();
+        image.setName(imageFile.getOriginalFilename());
+        image.setType(imageFile.getContentType());
+        image.setPicByte(ImageCompressHelper.compressZLib(imageFile.getBytes()));
+        image.setEvent(event);
+        imageRepository.save(image);
+        return true;
     }
 }

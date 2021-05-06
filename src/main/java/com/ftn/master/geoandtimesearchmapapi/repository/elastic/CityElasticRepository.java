@@ -10,5 +10,5 @@ public interface CityElasticRepository extends ElasticsearchRepository<IndexUnit
     List<IndexUnitCity> findByNameOrAdminName(String name,String adminName);
     List<IndexUnitCity> findByNameOrNameAscii(String name,String nameAscii);
     List<IndexUnitCity> findByNameOrAdminNameOrNameAscii(String name,String adminName,String nameAscii);
-
+    List<IndexUnitCity> findByNameLikeOrAdminNameLikeOrNameAsciiLike(String name,String adminName,String nameAscii);
 }
