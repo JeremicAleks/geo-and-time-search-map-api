@@ -13,7 +13,8 @@ public class Image {
 
     private String type;
 
-    @Column(length = 1000)
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] picByte;
 
     @ManyToOne

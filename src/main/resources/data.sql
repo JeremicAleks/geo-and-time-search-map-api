@@ -1,3 +1,42 @@
 INSERT INTO `role` VALUES (1,'ADMIN'),(2,'USER');
 
-INSERT INTO `user` (email, first_name, last_name, password, username, role_id) VALUES ('jeremic@mail.com','Aleksandar','Jeremic','{bcrypt}$2a$10$/dGxtSvgJPMdOPEuewh8ZOpj2X8DI2/QRgaTrsdavf1YueHrdwxkW','acika',1);
+INSERT INTO `user` (email, first_name, last_name, password, username, role_id,enabled) VALUES ('jeremic@mail.com','Aleksandar','Jeremic','{bcrypt}$2a$10$/dGxtSvgJPMdOPEuewh8ZOpj2X8DI2/QRgaTrsdavf1YueHrdwxkW','acika',1,true);
+
+--
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (1,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'PRVI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (2,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'DRUGI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (3,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'TRECI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (4,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'CETVRTI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (5,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'PETI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (6,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'SESTI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (7,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'SEDMI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (8,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'OSMI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (9,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'DEVETI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (10,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'DESETI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (11,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'11TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (12,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'12TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (13,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'13TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (14,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'14TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (15,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'15TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (16,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'16TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (17,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'17TI','1241234','www');
+-- INSERT INTO `event` (id, address, approved, category, city, description, event_date, lat, lon, name, phone, web_site)
+--                 VALUES (18,'Adresa',true,'FILM','Zemun','OPIS','2020-01-01',1,1,'18TI','1241234','www');
+--

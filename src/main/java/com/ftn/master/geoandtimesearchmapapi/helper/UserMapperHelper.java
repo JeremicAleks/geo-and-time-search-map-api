@@ -15,6 +15,7 @@ public final class UserMapperHelper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
+        userDTO.setEnabled(user.isEnabled());
         return userDTO;
     }
 
