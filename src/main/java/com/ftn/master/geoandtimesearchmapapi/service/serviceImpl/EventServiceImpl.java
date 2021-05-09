@@ -2,9 +2,7 @@ package com.ftn.master.geoandtimesearchmapapi.service.serviceImpl;
 
 import com.ftn.master.geoandtimesearchmapapi.domain.Event;
 import com.ftn.master.geoandtimesearchmapapi.domain.Image;
-import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
-import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
-import com.ftn.master.geoandtimesearchmapapi.dto.EventListDTO;
+import com.ftn.master.geoandtimesearchmapapi.dto.*;
 import com.ftn.master.geoandtimesearchmapapi.helper.EventMapperHelper;
 import com.ftn.master.geoandtimesearchmapapi.helper.ImageCompressHelper;
 import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerEventService;
@@ -12,6 +10,8 @@ import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
 import com.ftn.master.geoandtimesearchmapapi.repository.EventRepository;
 import com.ftn.master.geoandtimesearchmapapi.repository.ImageRepository;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -124,5 +124,17 @@ public class EventServiceImpl implements EventService {
         image.setEvent(event);
         imageRepository.save(image);
         return true;
+    }
+
+    @Override
+    public PageableResponseEventDTO pageableGetEvent(PageableRequestDTO pageableRequestDTO) {
+        Page<Event> events = eventRepository.findByApproved(pageableRequestDTO.isFlagFilter(),PageRequest.of(pageableRequestDTO.getPage(),pageableRequestDTO.getSize()));
+        PageableResponseEventDTO pageableResponseDTO = new PageableResponseEventDTO();
+        pageableResponseDTO.setTotalPages(events.getTotalPages());
+        pageableResponseDTO.setTotalElements(events.getTotalElements());
+        for(Event event: events.getContent()){
+            pageableResponseDTO.getEventListDTO().getEvents().add(EventMapperHelper.eventDTOFromEvent(event));
+        }
+        return pageableResponseDTO;
     }
 }

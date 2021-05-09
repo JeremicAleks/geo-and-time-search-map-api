@@ -9,6 +9,7 @@ public class UserDTO {
     private String email;
     private String username;
     private String password;
+    private boolean enabled;
 
     public UserDTO() {
     }
@@ -59,5 +60,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
