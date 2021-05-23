@@ -1,6 +1,6 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.indexing;
+package com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitEvent;
 
 public interface IndexerEventService {
     boolean addEvent(IndexUnitEvent indexUnitEvent);

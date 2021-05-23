@@ -18,31 +18,31 @@ public class UserManagementController {
     }
 
     @GetMapping("enabled")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> getAllEnabled(){
         return ResponseEntity.ok(userService.getAllEnabledUsers());
     }
 
     @GetMapping("disabled")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> getAllDisabled() {
         return ResponseEntity.ok(userService.getAllDisabledUsers());
     }
 
     @PostMapping("enableUser")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> enableUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.enableUser(userDTO));
     }
 
     @PostMapping("disableUser")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> disableUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.disableUser(userDTO));
     }
 
     @PostMapping("pageable")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> pageableGetUsers(@RequestBody PageableRequestDTO pageableRequestDTO){
         return ResponseEntity.ok(userService.pageableGetUsers(pageableRequestDTO));
     }

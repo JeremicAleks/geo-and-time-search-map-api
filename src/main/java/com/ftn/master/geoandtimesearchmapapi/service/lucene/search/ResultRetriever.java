@@ -1,11 +1,11 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.search;
+package com.ftn.master.geoandtimesearchmapapi.service.lucene.search;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ftn.master.geoandtimesearchmapapi.helper.ResultRetrieverMapperHelper;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataCity;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataEvent;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitCity;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.ResultDataCity;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.ResultDataEvent;
 import com.ftn.master.geoandtimesearchmapapi.repository.elastic.CityElasticRepository;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -64,36 +64,44 @@ public class ResultRetriever {
 	}
 
 
-	public List<ResultDataEvent> getGeoPointSearch(QueryBuilder queryBuilder) throws Exception{
+	public List<ResultDataEvent> getGeoPointSearch(QueryBuilder queryBuilderBoolQuery) throws Exception{
 		List<ResultDataEvent> resultDataEvents = new ArrayList<>();
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		SearchRequest searchRequest = new SearchRequest("event");
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 
-		searchSourceBuilder.query(queryBuilder);
+		searchSourceBuilder.query(queryBuilderBoolQuery);
 		searchRequest.source(searchSourceBuilder);
+		searchSourceBuilder.size(100);
+
 
 		SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
 		SearchHit[] hits = searchResponse.getHits().getHits();
 		for(SearchHit searchHit: hits){
 			ResultDataEvent resultDataEvent = objectMapper.readValue(searchHit.getSourceAsString(),ResultDataEvent.class);
-			resultDataEvents.add(resultDataEvent);
+			if (resultDataEvent.getEventDate()!=null) {
+				resultDataEvent.setDate(resultDataEvent.getEventDate().toString());
+			}
+				resultDataEvents.add(resultDataEvent);
 		}
 
 		return resultDataEvents;
 	}
 
 
-	public List<ResultDataCity> getCityByNameOrAminNameOrNameAscii(String name) {
+	public ResultDataCity getCityByNameOrAminNameOrNameAscii(String name) {
 
 		List<IndexUnitCity> listOfCity = cityElasticRepository.findByNameOrAdminNameOrNameAscii(name,name,name);
 		List<ResultDataCity> resultDataCityList = new ArrayList<>();
+		if(listOfCity.size()==0){
+			return new ResultDataCity();
+		}
 		for(IndexUnitCity indexUnitCity: listOfCity) {
 			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
 		}
 
-		return resultDataCityList;
+		return resultDataCityList.get(0);
 
 	}
 
@@ -106,4 +114,18 @@ public class ResultRetriever {
 
 		return resultDataCityList;
 	}
+
+    public ResultDataCity getCityByNameAndCountry(String name, String country) {
+		List<IndexUnitCity> listOfCities = cityElasticRepository.findByNameAndCountry(name,country);
+		if(listOfCities.size()==0)
+			return new ResultDataCity();
+
+		List<ResultDataCity> resultDataCityList = new ArrayList<>();
+
+		for(IndexUnitCity indexUnitCity: listOfCities)
+			resultDataCityList.add(ResultRetrieverMapperHelper.resultDataCityFromIndex(indexUnitCity));
+
+		return resultDataCityList.get(0);
+
+    }
 }

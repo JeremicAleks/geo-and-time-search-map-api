@@ -18,13 +18,13 @@ public class EventManagementController {
     }
 
     @GetMapping("approved")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> getAllApproved(){
         return ResponseEntity.ok(eventService.getAllApproved());
     }
 
     @GetMapping("requested")
-    @PreAuthorize(value = "hasAuthority('ADMIN') or hasRole('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('HEAD_ADMIN') or hasRole('HEAD_ADMIN')")
     public ResponseEntity<?> getAllRequestedEvents(){
         return ResponseEntity.ok(eventService.getAllRequestedEvents());
     }

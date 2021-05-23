@@ -14,11 +14,17 @@ public class EventDTO {
     private double lon;
     private Date eventDate;
     private EventCategory category;
+    private String categoryName;
     private String address;
     private String webSite;
     private String phone;
     private String city;
     private Set<ImageDTO> images;
+    private boolean booking;
+    private String bookingName;
+    private double bookingPrice;
+    private String bookingUrl;
+    private boolean approved;
 
 
     public EventDTO() {
@@ -119,5 +125,53 @@ public class EventDTO {
 
     public void setImages(Set<ImageDTO> images) {
         this.images = images;
+    }
+
+    public boolean isBooking() {
+        return booking;
+    }
+
+    public void setBooking(boolean booking) {
+        this.booking = booking;
+    }
+
+    public String getBookingName() {
+        return bookingName;
+    }
+
+    public void setBookingName(String bookingName) {
+        this.bookingName = bookingName;
+    }
+
+    public double getBookingPrice() {
+        return bookingPrice;
+    }
+
+    public void setBookingPrice(double bookingPrice) {
+        this.bookingPrice = bookingPrice;
+    }
+
+    public String getBookingUrl() {
+        return bookingUrl;
+    }
+
+    public void setBookingUrl(String bookingUrl) {
+        this.bookingUrl = bookingUrl;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

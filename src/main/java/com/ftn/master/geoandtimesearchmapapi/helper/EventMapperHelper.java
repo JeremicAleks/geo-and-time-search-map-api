@@ -5,7 +5,7 @@ import com.ftn.master.geoandtimesearchmapapi.domain.Image;
 import com.ftn.master.geoandtimesearchmapapi.dto.AddEventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.EventDTO;
 import com.ftn.master.geoandtimesearchmapapi.dto.ImageDTO;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitEvent;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +21,18 @@ public final class EventMapperHelper {
         event.setApproved(false); //TODO: Videti da li treba da ostane false
         event.setEventDate(addEventDTO.getEventDate());
         event.setCategory(addEventDTO.getCategory());
+        event.setCategoryName(addEventDTO.getCategoryName());
         event.setAddress(addEventDTO.getAddress());
         event.setWebSite(addEventDTO.getWebSite());
         event.setPhone(addEventDTO.getPhone());
         event.setCity(addEventDTO.getCity());
+        event.setBooking(addEventDTO.isBooking());
+        if (addEventDTO.getBookingName()!= null)
+            event.setBookingName(addEventDTO.getBookingName());
+        if (addEventDTO.getBookingUrl()!=null)
+            event.setBookingUrl(addEventDTO.getBookingUrl());
+        if(addEventDTO.getBookingPrice()!=0)
+            event.setBookingPrice(addEventDTO.getBookingPrice());
         return event;
     }
 
@@ -36,7 +44,9 @@ public final class EventMapperHelper {
         eventDTO.setLon(event.getLon());
         eventDTO.setId(event.getId());
         eventDTO.setEventDate(event.getEventDate());
+        eventDTO.setApproved(event.isApproved());
         eventDTO.setCategory(event.getCategory());
+        eventDTO.setCategoryName(event.getCategoryName());
         eventDTO.setAddress(event.getAddress());
         eventDTO.setWebSite(event.getWebSite());
         eventDTO.setPhone(event.getPhone());
@@ -51,6 +61,15 @@ public final class EventMapperHelper {
                 eventDTO.getImages().add(imageDTO);
             }
         }
+
+        eventDTO.setBooking(event.isBooking());
+        if(event.getBookingName()!=null)
+            eventDTO.setBookingName(event.getBookingName());
+        if(event.getBookingPrice()!= 0)
+            eventDTO.setBookingPrice(event.getBookingPrice());
+        if(event.getBookingUrl()!=null)
+            eventDTO.setBookingUrl(event.getBookingUrl());
+
         return eventDTO;
     }
 
@@ -67,9 +86,8 @@ public final class EventMapperHelper {
         indexUnitEvent.setWebSite(event.getWebSite());
         indexUnitEvent.setPhone(event.getPhone());
         indexUnitEvent.setCity(event.getCity());
+        indexUnitEvent.setCategoryName(event.getCategoryName());
         return indexUnitEvent;
     }
-
-
 
 }

@@ -1,25 +1,53 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.model;
+package com.ftn.master.geoandtimesearchmapapi.domain.lcuene;
 
 import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
+import org.elasticsearch.common.Nullable;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
+import javax.persistence.Id;
 import java.util.Date;
 
-public class ResultDataEvent {
+@Document(indexName = "event", shards = 1, replicas = 0)
+public class IndexUnitEvent {
+    @Id
     private Long id;
+
+    @Field(type = FieldType.Text)
     private String name;
+
+    @Field(type = FieldType.Text)
     private String description;
+
+    @Field(type = FieldType.Date)
     private Date eventDate;
+
+    @GeoPointField
     private GeoPoint geoPoint;
+
+    @Field(type = FieldType.Text)
     private EventCategory category;
+
+    @Field(type = FieldType.Boolean)
     private boolean approved;
+
+    @Field(type = FieldType.Text)
     private String address;
+
+    @Field(type = FieldType.Text)
     private String webSite;
+
+    @Field(type = FieldType.Text)
     private String phone;
+
+    @Field(type = FieldType.Text)
     private String city;
 
-    public ResultDataEvent() {
-    }
+    @Field(type = FieldType.Text)
+    private String categoryName;
 
     public Long getId() {
         return id;
@@ -107,5 +135,13 @@ public class ResultDataEvent {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

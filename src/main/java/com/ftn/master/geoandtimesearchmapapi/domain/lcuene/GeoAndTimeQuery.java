@@ -1,11 +1,13 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.model;
+package com.ftn.master.geoandtimesearchmapapi.domain.lcuene;
 
 import java.util.Date;
 
 public class GeoAndTimeQuery {
     private String cityName;
+    private String countryName;
     private Date startDate;
     private Date endDate;
+    private String category;
 
     public GeoAndTimeQuery() {
     }
@@ -16,6 +18,14 @@ public class GeoAndTimeQuery {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public Date getStartDate() {
@@ -32,5 +42,13 @@ public class GeoAndTimeQuery {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

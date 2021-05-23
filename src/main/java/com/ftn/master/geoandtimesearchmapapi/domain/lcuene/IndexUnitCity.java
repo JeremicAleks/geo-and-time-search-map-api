@@ -1,19 +1,35 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.model;
+package com.ftn.master.geoandtimesearchmapapi.domain.lcuene;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-public class ResultDataCity {
+import javax.persistence.Id;
 
-    private String id;
+@Document(indexName = "city",shards = 1,replicas = 0)
+public class IndexUnitCity {
+    @Id
+    private  String id;
+
+    @Field(type = FieldType.Text)
     private String name;
-    private String nameAscii;
-    private String country;
-    private String iso3;
-    private String adminName;
-    private GeoPoint geoPoint;
 
-    public ResultDataCity() {
-    }
+    @Field(type = FieldType.Text)
+    private String nameAscii;
+
+    @Field(type = FieldType.Text)
+    private String country;
+
+    @Field(type = FieldType.Text)
+    private String iso3;
+
+    @Field(type = FieldType.Text)
+    private String adminName;
+
+    @GeoPointField
+    private GeoPoint geoPoint;
 
     public String getId() {
         return id;

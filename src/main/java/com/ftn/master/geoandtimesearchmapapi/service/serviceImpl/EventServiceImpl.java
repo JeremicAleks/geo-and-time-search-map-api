@@ -5,8 +5,8 @@ import com.ftn.master.geoandtimesearchmapapi.domain.Image;
 import com.ftn.master.geoandtimesearchmapapi.dto.*;
 import com.ftn.master.geoandtimesearchmapapi.helper.EventMapperHelper;
 import com.ftn.master.geoandtimesearchmapapi.helper.ImageCompressHelper;
-import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerEventService;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
+import com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.IndexerEventService;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitEvent;
 import com.ftn.master.geoandtimesearchmapapi.repository.EventRepository;
 import com.ftn.master.geoandtimesearchmapapi.repository.ImageRepository;
 import com.ftn.master.geoandtimesearchmapapi.service.EventService;
@@ -81,9 +81,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO saveEvent(AddEventDTO addEventDTO) {
+    public EventDTO saveEvent(AddEventDTO addEventDTO, String name) {
         Event event = EventMapperHelper.createEventForAddFromDTO(addEventDTO);
-
+        event.setUserUsername(name);
         event = eventRepository.save(event);
         IndexUnitEvent indexUnitEvent = EventMapperHelper.indexUnitEventFromDomainMapper(event);
 
@@ -102,6 +102,17 @@ public class EventServiceImpl implements EventService {
         event.setLon(eventDTO.getLon() != 0 ? eventDTO.getLon() : event.getLon());
         event.setCategory(eventDTO.getCategory() !=null ? eventDTO.getCategory() : event.getCategory());
         event.setEventDate(eventDTO.getEventDate() != null ? eventDTO.getEventDate() : event.getEventDate());
+        event.setAddress(eventDTO.getAddress() != null ? eventDTO.getAddress() : event.getAddress());
+        event.setCategoryName(eventDTO.getCategoryName() != null ? eventDTO.getCategoryName() : event.getCategoryName());
+        event.setWebSite(eventDTO.getWebSite() != null ? eventDTO.getWebSite() : event.getWebSite());
+        event.setPhone(eventDTO.getPhone() != null ? eventDTO.getPhone() : event.getPhone());
+        event.setBooking(eventDTO.isBooking());
+        event.setBookingName(eventDTO.getBookingName() != null ? eventDTO.getBookingName() : event.getBookingName());
+        event.setBookingPrice(eventDTO.getBookingPrice());
+        event.setBookingUrl(eventDTO.getBookingUrl() != null ? eventDTO.getBookingUrl() : event.getBookingUrl());
+        event.setCity(eventDTO.getCity() != null ? eventDTO.getCity() : event.getCity());
+
+
 
         event = eventRepository.save(event);
         indexerEventService.updateEvent(EventMapperHelper.indexUnitEventFromDomainMapper(event));
@@ -111,7 +122,11 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean deleteEvent(Long id) {
-        return false;
+        Event event = eventRepository.getOne(id);
+        eventRepository.delete(event);
+        indexerEventService.deleteEvent(EventMapperHelper.indexUnitEventFromDomainMapper(event));
+
+        return true;
     }
 
     @Override
@@ -136,5 +151,40 @@ public class EventServiceImpl implements EventService {
             pageableResponseDTO.getEventListDTO().getEvents().add(EventMapperHelper.eventDTOFromEvent(event));
         }
         return pageableResponseDTO;
+    }
+
+    @Override
+    public PageableResponseEventDTO pageableGetEventUserUsername(PageableRequestDTO pageableRequestDTO, String username) {
+        Page<Event> events = eventRepository.findByUserUsername(username,PageRequest.of(pageableRequestDTO.getPage(),pageableRequestDTO.getSize()));
+        PageableResponseEventDTO pageableResponseDTO = new PageableResponseEventDTO();
+        pageableResponseDTO.setTotalPages(events.getTotalPages());
+        pageableResponseDTO.setTotalElements(events.getTotalElements());
+        for(Event event: events.getContent()){
+            pageableResponseDTO.getEventListDTO().getEvents().add(EventMapperHelper.eventDTOFromEvent(event));
+        }
+        return pageableResponseDTO;
+    }
+
+    @Override
+    public ImageListDTO getAllImagesFromEvent(Long id) {
+        Event event = eventRepository.getOne(id);
+        List<Image> images = imageRepository.findByEvent(event);
+        ImageListDTO imageListDTO = new ImageListDTO();
+        for(Image image : images){
+            ImageDTO imageDTO = new ImageDTO();
+            imageDTO.setId(image.getId());
+            imageDTO.setName(image.getName());
+            imageDTO.setType(image.getType());
+            imageDTO.setPicByte(ImageCompressHelper.decompressZLib(image.getPicByte()));
+            imageListDTO.getImages().add(imageDTO);
+        }
+        return imageListDTO;
+    }
+
+    @Override
+    public boolean deleteImage(Long id) {
+        Image image = this.imageRepository.getOne(id);
+        imageRepository.delete(image);
+        return true;
     }
 }

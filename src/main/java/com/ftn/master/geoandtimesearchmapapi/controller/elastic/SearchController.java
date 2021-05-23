@@ -1,12 +1,10 @@
 package com.ftn.master.geoandtimesearchmapapi.controller.elastic;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.SimpleQuery;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.GeoAndTimeQuery;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.SimpleQuery;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.GeoAndTimeQuery;
 import com.ftn.master.geoandtimesearchmapapi.service.elastic.SearchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @CrossOrigin(value = "*")
 @RestController
@@ -34,7 +32,7 @@ public class SearchController {
 
 	@PostMapping("/city")
 	public ResponseEntity<?> searchCity(@RequestBody SimpleQuery simpleQuery){
-		return ResponseEntity.ok(searchService.getCityByNameOrAdminNameOrNameAscii(simpleQuery.getValue()).size() > 0 ? searchService.getCityByNameOrAdminNameOrNameAscii(simpleQuery.getValue()).get(0) : -1 );
+		return ResponseEntity.ok(searchService.getCityByNameOrAdminNameOrNameAscii(simpleQuery.getValue()));
 	}
 
 
