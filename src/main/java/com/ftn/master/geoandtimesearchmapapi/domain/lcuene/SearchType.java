@@ -1,4 +1,4 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.model;
+package com.ftn.master.geoandtimesearchmapapi.domain.lcuene;
 
 public enum SearchType {
 	

@@ -17,4 +17,6 @@ public interface EventRepository extends JpaRepository<Event,Long> {
     List<Event> getAllRequestedEvents();
 
     Page<Event> findByApproved(boolean approved, Pageable pageable);
+
+    Page<Event> findByUserUsername(String username,Pageable pageable);
 }

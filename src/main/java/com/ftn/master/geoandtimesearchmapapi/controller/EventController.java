@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,8 +44,8 @@ public class EventController {
 //    }
 
     @PostMapping
-    public ResponseEntity<?> saveEvent(@RequestBody AddEventDTO addEventDTO){
-        return ResponseEntity.ok(eventService.saveEvent(addEventDTO));
+    public ResponseEntity<?> saveEvent(@RequestBody AddEventDTO addEventDTO, Principal principal){
+        return ResponseEntity.ok(eventService.saveEvent(addEventDTO,principal.getName()));
     }
 
     @PostMapping("approve")
@@ -66,6 +67,27 @@ public class EventController {
     @PostMapping("pageable")
     public ResponseEntity<?> pageableGetEvents(@RequestBody PageableRequestDTO pageableRequestDTO){
         return ResponseEntity.ok(eventService.pageableGetEvent(pageableRequestDTO));
+    }
+
+    @PostMapping("pageableUser")
+    public ResponseEntity<?> pageableGetEventsUserUsername(@RequestBody PageableRequestDTO pageableRequestDTO, Principal principal){
+        return ResponseEntity.ok(eventService.pageableGetEventUserUsername(pageableRequestDTO,principal.getName()));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(eventService.deleteEvent(id));
+    }
+
+    @GetMapping("images/{id}")
+    public ResponseEntity<?> getAllImageFromEvent(@PathVariable("id") Long id){
+        return ResponseEntity.ok(eventService.getAllImagesFromEvent(id));
+    }
+
+    @DeleteMapping("/imageDelete/{id}")
+    public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(eventService.deleteImage(id));
     }
 
 

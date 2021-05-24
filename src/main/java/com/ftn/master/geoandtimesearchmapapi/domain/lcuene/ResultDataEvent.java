@@ -1,49 +1,27 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.model;
+package com.ftn.master.geoandtimesearchmapapi.domain.lcuene;
 
 import com.ftn.master.geoandtimesearchmapapi.enumeration.EventCategory;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-import javax.persistence.Id;
 import java.util.Date;
 
-@Document(indexName = "event", shards = 1, replicas = 0)
-public class IndexUnitEvent {
-    @Id
+public class ResultDataEvent {
     private Long id;
-
-    @Field(type = FieldType.Text)
     private String name;
-
-    @Field(type = FieldType.Text)
     private String description;
-
-    @Field(type = FieldType.Date)
     private Date eventDate;
-
-    @GeoPointField
     private GeoPoint geoPoint;
-
-    @Field(type = FieldType.Text)
     private EventCategory category;
-
-    @Field(type = FieldType.Boolean)
     private boolean approved;
-
-    @Field(type = FieldType.Text)
     private String address;
-
-    @Field(type = FieldType.Text)
     private String webSite;
-
-    @Field(type = FieldType.Text)
     private String phone;
-
-    @Field(type = FieldType.Text)
     private String city;
+    private String date;
+    private String categoryName;
+
+    public ResultDataEvent() {
+    }
 
     public Long getId() {
         return id;
@@ -131,5 +109,21 @@ public class IndexUnitEvent {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

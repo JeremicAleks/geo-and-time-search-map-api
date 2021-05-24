@@ -33,12 +33,24 @@ public class Event {
 
     private String city;
 
+    private String userUsername;
+
+    private boolean booking = false;
+
+    private String bookingName;
+
+    private double bookingPrice;
+
+    private String bookingUrl;
+
+    private String categoryName;
+
 
     @Enumerated(EnumType.STRING)
     private EventCategory category;
 
 
-    @OneToMany(mappedBy = "event",cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event",orphanRemoval = true,cascade = {CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
     private Set<Image> images;
 
 
@@ -147,5 +159,53 @@ public class Event {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    public String getUserUsername() {
+        return userUsername;
+    }
+
+    public void setUserUsername(String userUsername) {
+        this.userUsername = userUsername;
+    }
+
+    public boolean isBooking() {
+        return booking;
+    }
+
+    public void setBooking(boolean booking) {
+        this.booking = booking;
+    }
+
+    public String getBookingName() {
+        return bookingName;
+    }
+
+    public void setBookingName(String bookingName) {
+        this.bookingName = bookingName;
+    }
+
+    public double getBookingPrice() {
+        return bookingPrice;
+    }
+
+    public void setBookingPrice(double bookingPrice) {
+        this.bookingPrice = bookingPrice;
+    }
+
+    public String getBookingUrl() {
+        return bookingUrl;
+    }
+
+    public void setBookingUrl(String bookingUrl) {
+        this.bookingUrl = bookingUrl;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

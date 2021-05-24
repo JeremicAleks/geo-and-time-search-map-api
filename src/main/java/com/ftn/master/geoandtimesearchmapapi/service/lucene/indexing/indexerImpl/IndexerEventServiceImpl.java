@@ -1,7 +1,7 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.indexing.indexerImpl;
+package com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.indexerImpl;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerEventService;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitEvent;
+import com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.IndexerEventService;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitEvent;
 import com.ftn.master.geoandtimesearchmapapi.repository.elastic.EventElasticRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +29,6 @@ public class IndexerEventServiceImpl implements IndexerEventService {
     @Override
     public boolean deleteEvent(IndexUnitEvent indexUnitEvent) {
         eventElasticRepository.delete(indexUnitEvent);
-        return false;
+        return true;
     }
 }

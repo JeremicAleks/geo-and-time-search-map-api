@@ -1,8 +1,8 @@
 package com.ftn.master.geoandtimesearchmapapi.service.elastic;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.GeoAndTimeQuery;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataCity;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataDTO;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.GeoAndTimeQuery;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.ResultDataCity;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.ResultDataDTO;
 
 import java.util.List;
 
@@ -16,7 +16,10 @@ public interface SearchService {
 
     List<ResultDataCity> getCityByNameOrNameAscii(String name);
 
-    List<ResultDataCity> getCityByNameOrAdminNameOrNameAscii(String name);
+    ResultDataCity getCityByNameOrAdminNameOrNameAscii(String name);
+
+    ResultDataCity getCityByNameAndCountry(String name,String country);
+
 
     List<ResultDataCity> getCitiesStartWith(String name);
 }

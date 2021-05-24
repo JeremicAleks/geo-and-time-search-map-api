@@ -12,5 +12,7 @@ public enum EventCategory {
     CHARITIES,
     SPORTS,
     KIDS_AND_FAMILY,
+    MUSEUM,
+    TOURIST_ATTRACTION,
     OTHER
 }

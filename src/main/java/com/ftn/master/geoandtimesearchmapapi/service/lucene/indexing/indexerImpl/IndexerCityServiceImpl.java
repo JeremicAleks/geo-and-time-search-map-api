@@ -1,7 +1,7 @@
-package com.ftn.master.geoandtimesearchmapapi.lucene.indexing.indexerImpl;
+package com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.indexerImpl;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerCityService;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
+import com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.IndexerCityService;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitCity;
 import com.ftn.master.geoandtimesearchmapapi.repository.elastic.CityElasticRepository;
 import org.springframework.stereotype.Service;
 

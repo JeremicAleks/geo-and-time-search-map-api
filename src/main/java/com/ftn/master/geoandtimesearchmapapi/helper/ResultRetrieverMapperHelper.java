@@ -1,7 +1,7 @@
 package com.ftn.master.geoandtimesearchmapapi.helper;
 
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.ResultDataCity;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitCity;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.ResultDataCity;
 import org.springframework.stereotype.Component;
 
 @Component

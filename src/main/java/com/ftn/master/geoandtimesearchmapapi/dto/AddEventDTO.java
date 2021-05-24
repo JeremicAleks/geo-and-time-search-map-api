@@ -14,11 +14,16 @@ public class AddEventDTO {
     private double lon;
     private Date eventDate;
     private EventCategory category;
+    private String categoryName;
     private boolean approved;
     private String address;
     private String webSite;
     private String phone;
     private String city;
+    private boolean booking;
+    private String bookingName;
+    private double bookingPrice;
+    private String bookingUrl;
 
 
     public AddEventDTO() {
@@ -112,4 +117,43 @@ public class AddEventDTO {
         this.city = city;
     }
 
+    public boolean isBooking() {
+        return booking;
+    }
+
+    public void setBooking(boolean booking) {
+        this.booking = booking;
+    }
+
+    public String getBookingName() {
+        return bookingName;
+    }
+
+    public void setBookingName(String bookingName) {
+        this.bookingName = bookingName;
+    }
+
+    public double getBookingPrice() {
+        return bookingPrice;
+    }
+
+    public void setBookingPrice(double bookingPrice) {
+        this.bookingPrice = bookingPrice;
+    }
+
+    public String getBookingUrl() {
+        return bookingUrl;
+    }
+
+    public void setBookingUrl(String bookingUrl) {
+        this.bookingUrl = bookingUrl;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

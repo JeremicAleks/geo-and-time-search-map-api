@@ -2,8 +2,8 @@ package com.ftn.master.geoandtimesearchmapapi.service.serviceImpl;
 
 import com.ftn.master.geoandtimesearchmapapi.domain.City;
 import com.ftn.master.geoandtimesearchmapapi.dto.CityDTO;
-import com.ftn.master.geoandtimesearchmapapi.lucene.indexing.IndexerCityService;
-import com.ftn.master.geoandtimesearchmapapi.lucene.model.IndexUnitCity;
+import com.ftn.master.geoandtimesearchmapapi.service.lucene.indexing.IndexerCityService;
+import com.ftn.master.geoandtimesearchmapapi.domain.lcuene.IndexUnitCity;
 import com.ftn.master.geoandtimesearchmapapi.service.CityService;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;

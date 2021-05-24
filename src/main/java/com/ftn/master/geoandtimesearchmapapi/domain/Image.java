@@ -17,7 +17,7 @@ public class Image {
     @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] picByte;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "event_id")
     private Event event;
 
